@@ -6,7 +6,7 @@ let dogsBackground = (num) => {
   let div = document.createElement('div')
   div.setAttribute('class', 'dogs-background')
   for(let i = 0; i < num; i++) {
-    div.innerHTML += `<img class="bg-dogs" style="top: ${Math.floor(Math.random() * 80) + 0}%; left: ${Math.floor(Math.random() * 85) + 0}%" src="images/dog-${bgDogColorsArray()[Math.floor(Math.random() * 109) + 0]}.png" alt="Annoying Dog">`
+    div.innerHTML += `<img class="bg-dogs" style="top: ${Math.floor(Math.random() * 80) + 0}%; left: ${Math.floor(Math.random() * 85) + 0}%" src="images/dog-${bgDogColorsArray()[Math.floor(Math.random() * 221) + 0]}.png" alt="Annoying Dog">`
   }
   // let div = document.getElementById('dogs-background')
   document.addEventListener('keydown', function(event) {
@@ -20,7 +20,6 @@ let dogsBackground = (num) => {
 let bgDogsMovingAround = () => {
   let doggos = document.querySelectorAll('.bg-dogs')
   for(let i = 0; i < doggos.length; i++) {
-    // debugger
     let doggoTop = parseInt(doggos[i].style.top)
     let doggoLeft = parseInt(doggos[i].style.left)
 
@@ -67,10 +66,12 @@ let bgDogColorsArray = () => {
   let colors = ["aquamarine", "chartreuse", "coral", "darkorchid", "deeppink", "pink", "red", "royalblue", "white", "yellow", "rainbow"]
   let colorsRNG = []
   colors.forEach(color => {
-    for(let i = 1; i <= 10; i ++) {
+    for(let i = 1; i <= 20; i ++) {
       colorsRNG.push(color)
     }
   })
+  colorsRNG.push("ghost")
+
   return colorsRNG
 }
 
@@ -108,8 +109,8 @@ function renderMessage(msg1, msg2) {
 document.addEventListener("DOMContentLoaded", function(event) {
 
 
-  dogsBackground(3)
-  let movingBgDogs = setInterval(bgDogsMovingAround, 20)
+  dogsBackground(10)
+  let movingBgDogs = setInterval(bgDogsMovingAround, 50)
 
   let annoyingDog = document.querySelector('.annoying-dog.only-dog')
 
@@ -164,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
   // function renderTwoDogs(dogs) {
-  //   debugger
   //   document.body.innerHTML = `<div id="doggo1">
   //     <p class="dog-1-name">${dogs[0].name}</p>
   //       <img class="annoying-dog dog-1" src="https://i.ytimg.com/vi/oUYPdBp4-zg/maxresdefault.jpg" alt="Annoying Dog">

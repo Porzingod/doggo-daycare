@@ -59,8 +59,12 @@ class Dog {
       <button id="pet-dog" style="visibility: hidden; position: absolute; top: 100%; left: 50%; margin-left: -24px; margin-top: -30px; font-size:20px; color:black; font-weight: bold;">Pet</button>
       <button id="feed-dog" style="visibility: hidden; position: absolute; color:black; top: 50%; margin-top: -5px; font-size:20px; font-weight: bold;">Feed</button>
       <button id="hydrate-dog" style="visibility: hidden; position: absolute; color:black; top: 50%; left: 100%; margin-top: -5px; margin-left: -65px; font-size:20px; font-weight: bold;">Hydrate</button>
-    </div>
-    <audio loop><source src="./audio/Gabe_the_dog_Do_the_hustle.mp3"></audio>`
+    </div>`
+    if (document.querySelector('.annoying-dog.only-dog').src === "file:///Users/flatironschool/dev/learn/03_mod/project/doggo-daycare-frontend/frontend/images/dog-ghost.png") {
+      document.body.innerHTML += `<audio loop><source src="./audio/Gabe_the_dog_Pokemon_Lavender_Town.mp3"></audio>`
+    } else {
+      document.body.innerHTML += `<audio loop><source src="./audio/Gabe_the_dog_Do_the_hustle.mp3"></audio>`
+    }
     // <img id="pee" src="images/cute-poop.png" style="top: -27%; left: -13%;">
     // <img id="pee" src="images/cute-poop.png" style="top: -27%; left: -13%;">
     // <img id="pee" src="images/cute-pee.png" style="top: -27%; left: -13%;">
