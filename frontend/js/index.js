@@ -6,7 +6,7 @@ let dogsBackground = (num) => {
   let div = document.createElement('div')
   div.setAttribute('class', 'dogs-background')
   for(let i = 0; i < num; i++) {
-    div.innerHTML += `<img class="bg-dogs" style="top: ${Math.floor(Math.random() * 80) + 0}%; left: ${Math.floor(Math.random() * 85) + 0}%" src="images/dog-${colorsArray()[Math.floor(Math.random() * 100) + 0]}.png" alt="Annoying Dog">`
+    div.innerHTML += `<img class="bg-dogs" style="top: ${Math.floor(Math.random() * 80) + 0}%; left: ${Math.floor(Math.random() * 85) + 0}%" src="images/dog-${bgDogColorsArray()[Math.floor(Math.random() * 109) + 0]}.png" alt="Annoying Dog">`
   }
   // let div = document.getElementById('dogs-background')
   document.addEventListener('keydown', function(event) {
@@ -61,6 +61,17 @@ let bgDogsMovingAround = () => {
 function getUsers() {
   return fetch(`${base_url}/users`)
   .then(res => res.json())
+}
+
+let bgDogColorsArray = () => {
+  let colors = ["aquamarine", "chartreuse", "coral", "darkorchid", "deeppink", "pink", "red", "royalblue", "white", "yellow", "rainbow"]
+  let colorsRNG = []
+  colors.forEach(color => {
+    for(let i = 1; i <= 10; i ++) {
+      colorsRNG.push(color)
+    }
+  })
+  return colorsRNG
 }
 
 let colorsArray = () => {
