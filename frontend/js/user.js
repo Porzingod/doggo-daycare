@@ -40,8 +40,8 @@ class User {
 
   static createUser(event) {
     event.preventDefault()
-    let user = document.getElementById('sign-up-username').value
-    let dog = document.getElementById('sign-up-dogname').value
+    let user = document.getElementById('sign-up-username').value.trim().toLowerCase()
+    let dog = document.getElementById('sign-up-dogname').value.trim()
     if(user === '' || dog === '') {
       renderMessage('ALL FIELDS NEED TO BE FILLED IN', 'PLEASE FILL IN')
       $('.ui.modal').modal('show');

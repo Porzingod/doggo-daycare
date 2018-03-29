@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
   function findUser() {
     getUsers()
     .then(json => {
-      let input = document.getElementById('log-in-input').value
+      let input = document.getElementById('log-in-input').value.trim().toLowerCase()
       let foundUser = json.find(function(user) {
         return user.username === input
       })

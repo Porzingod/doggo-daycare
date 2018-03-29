@@ -74,8 +74,13 @@ class Dog {
     this.renderDogStats()
     this.statIntervals()
     let annoyingDog = document.querySelector('.annoying-dog.only-dog')
-    annoyingDog.addEventListener('mouseover', event => document.querySelector('audio').play())
-    annoyingDog.addEventListener('mouseout', event => document.querySelector('audio').pause())
+    annoyingDog.addEventListener('click', event => {
+      if (document.querySelector('audio').paused) {
+        document.querySelector('audio').play()
+      } else {
+        document.querySelector('audio').pause()
+      }
+    })
     //if(this.color === 'ghost'){
       User.addKonamiCode()
     //}
@@ -110,6 +115,9 @@ class Dog {
       if (this.happiness < 10) {
         this.happiness += 1
         this.renderDogHappinessBars()
+        if (Math.random() >= .9) {
+          this.goPipi()
+        }
         setTimeout(function(){ document.body.append(heart(event, 1.5, 0, 5, 8)) }, 50);
         setTimeout(function(){ document.body.append(heart(event, 2, -22.5, 9, 10)) }, 200);
         setTimeout(function(){ document.body.append(heart(event, 3, -40, 16, 11)) }, 500);
@@ -156,8 +164,8 @@ class Dog {
     setInterval(this.makeLessHappy.bind(this), Math.floor(Math.random() * 13000) + 11000)
     setInterval(this.makeMoreHungry.bind(this), Math.floor(Math.random() * 5000) + 3000)
     setInterval(this.makeMoreThirsty.bind(this), Math.floor(Math.random() * 5000) + 3000)
-    setInterval(this.makeMorePoopy.bind(this), Math.floor(Math.random() * 4000) + 2500)
-    setInterval(this.makeMorePipi.bind(this), Math.floor(Math.random() * 4000) + 2500)
+    setInterval(this.makeMorePoopy.bind(this), Math.floor(Math.random() * 3000) + 1000)
+    setInterval(this.makeMorePipi.bind(this), Math.floor(Math.random() * 3000) + 1000)
     setInterval(this.updateDog.bind(this), 10000)
   }
 
