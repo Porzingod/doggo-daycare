@@ -53,18 +53,18 @@ class Dog {
   }
 
   renderOneDog() {
+    let dog = this
+    window.onbeforeunload = function(event) {
+      dog.updateDogOnClose()
+    }
     document.body.innerHTML = `<div class="hidden" dog_id="${this.id}" user_id='${this.user_id}' id="doggo" style="position: absolute; top: 50%; left: 50%; width: 300px; height: 220px; margin-top: -100px; margin-left: -150px">
       <p class="only-dog-name" style="position: absolute; left: 50%; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; text-align: center; font-size: 30px;">${this.name.substring(0,10)}</p>
       <img class="annoying-dog only-dog" style="position: absolute; top: 50%; left: 50%; margin-top: -60px; margin-left: -100px;" src="images/dog-${this.color}.png" alt="Annoying Dog">
       <button id="pet-dog" style="visibility: hidden; position: absolute; top: 100%; left: 50%; margin-left: -24px; margin-top: -30px; font-size:20px; color:black; font-weight: bold;">Pet</button>
       <button id="feed-dog" style="visibility: hidden; position: absolute; color:black; top: 50%; margin-top: -5px; font-size:20px; font-weight: bold;">Feed</button>
       <button id="hydrate-dog" style="visibility: hidden; position: absolute; color:black; top: 50%; left: 100%; margin-top: -5px; margin-left: -65px; font-size:20px; font-weight: bold;">Hydrate</button>
-    </div>`
-    if (document.querySelector('.annoying-dog.only-dog').src === "file:///Users/flatironschool/dev/learn/03_mod/project/doggo-daycare-frontend/frontend/images/dog-ghost.png") {
-      document.body.innerHTML += `<audio loop><source src="./audio/Gabe_the_dog_Pokemon_Lavender_Town.mp3"></audio>`
-    } else {
-      document.body.innerHTML += `<audio loop><source src="./audio/Gabe_the_dog_Do_the_hustle.mp3"></audio>`
-    }
+    </div>
+    <audio loop><source src="./audio/Gabe_the_dog_Do_the_hustle.mp3"></audio>`
     // <img id="pee" src="images/cute-poop.png" style="top: -27%; left: -13%;">
     // <img id="pee" src="images/cute-poop.png" style="top: -27%; left: -13%;">
     // <img id="pee" src="images/cute-pee.png" style="top: -27%; left: -13%;">
@@ -75,14 +75,11 @@ class Dog {
     this.statIntervals()
     let annoyingDog = document.querySelector('.annoying-dog.only-dog')
     annoyingDog.addEventListener('click', event => {
-      if (document.querySelector('audio').paused) {
-        document.querySelector('audio').play()
-      } else {
-        document.querySelector('audio').pause()
-      }
+      let audio = document.querySelector('audio')
+      audio.paused ? audio.play() : audio.pause()
     })
     //if(this.color === 'ghost'){
-      User.addKonamiCode()
+    User.addKonamiCode()
     //}
   }
 
@@ -115,9 +112,6 @@ class Dog {
       if (this.happiness < 10) {
         this.happiness += 1
         this.renderDogHappinessBars()
-        if (Math.random() >= .9) {
-          this.goPipi()
-        }
         setTimeout(function(){ document.body.append(heart(event, 1.5, 0, 5, 8)) }, 50);
         setTimeout(function(){ document.body.append(heart(event, 2, -22.5, 9, 10)) }, 200);
         setTimeout(function(){ document.body.append(heart(event, 3, -40, 16, 11)) }, 500);
@@ -164,8 +158,8 @@ class Dog {
     setInterval(this.makeLessHappy.bind(this), Math.floor(Math.random() * 13000) + 11000)
     setInterval(this.makeMoreHungry.bind(this), Math.floor(Math.random() * 5000) + 3000)
     setInterval(this.makeMoreThirsty.bind(this), Math.floor(Math.random() * 5000) + 3000)
-    setInterval(this.makeMorePoopy.bind(this), Math.floor(Math.random() * 3000) + 1000)
-    setInterval(this.makeMorePipi.bind(this), Math.floor(Math.random() * 3000) + 1000)
+    setInterval(this.makeMorePoopy.bind(this), Math.floor(Math.random() * 4000) + 2500)
+    setInterval(this.makeMorePoopy.bind(this), Math.floor(Math.random() * 4000) + 2500)
     setInterval(this.updateDog.bind(this), 10000)
   }
 
@@ -337,20 +331,43 @@ class Dog {
   }
 
   updateDog() {
-    let object = {
+    let object = JSON.stringify({
       happiness: this.happiness,
       hunger: this.hunger,
       thirst: this.thirst,
       poopy: this.poopy,
       pipi: this.pipi
-    }
+    })
+
     fetch(`${base_url}/users/${this.user_id}/dogs/${this.id}`, {
       method: "PATCH",
-      body: JSON.stringify(object),
+      body: object,
       headers: {
         'Content-Type': 'application/json'
       }
     })
+  }
+
+  updateDogOnClose() {
+    let object = JSON.stringify({
+      happiness: this.happiness,
+      hunger: this.hunger,
+      thirst: this.thirst,
+      poopy: this.poopy,
+      pipi: this.pipi
+    })
+
+    var xhr = new XMLHttpRequest();
+
+    xhr.addEventListener("readystatechange", function () {
+      if (this.readyState === 4) {
+          console.log(this.responseText);
+      }
+    })
+
+    xhr.open("PUT", `${base_url}/users/${this.user_id}/dogs/${this.id}`, false);
+    xhr.setRequestHeader("content-type", "application/json");
+    xhr.send(object);
   }
 
   goPoopy() {
@@ -379,3 +396,9 @@ class Dog {
     document.body.append(div)
   }
 }
+
+// window.addEventListener("beforeunload", function(e){
+//    // Do something
+//    console.log(this)
+//    debugger
+// }, false);
