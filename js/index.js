@@ -105,6 +105,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   const signUp = document.getElementById('sign-up-btn')
 
+  const demo = document.getElementById('demo-btn')
+
   const form = document.getElementById('log-in-form')
   form.addEventListener('submit', function(event) {
     event.preventDefault()
@@ -125,12 +127,20 @@ document.addEventListener("DOMContentLoaded", function(event) {
       } else {
         let user = new User(foundUser.id, foundUser.username)
         user.displayDogs()
+        clearInterval(movingBgDogs)
       }
     })
-    clearInterval(movingBgDogs)
   }
 
-
+  demo.addEventListener('click', function(event) {
+    getUsers()
+    .then(json => {
+      let {id, username} = json[7]
+      let user = new User(id, username)
+      user.displayDogs()
+      clearInterval(movingBgDogs)
+    })
+  })
 
   signUp.addEventListener('click', function(event) {
     let main = document.createElement('main')

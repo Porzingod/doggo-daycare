@@ -41,13 +41,22 @@ h1 {
 #sign-up-btn {
   position: absolute;
   width: 40%;
-  margin-top: 60px;
+  margin-top: 40px;
   font-size: 1em;
   left: 50%;
   margin-left: -105px;
   border-radius: 5px;
 }
 
+#demo-btn {
+  position: absolute;
+  width: 40%;
+  margin-top: 100px;
+  font-size: 1em;
+  left: 50%;
+  margin-left: -105px;
+  border-radius: 5px;
+}
 #sign-up-username {
   width: 520.67px;
   text-align: center;
